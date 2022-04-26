@@ -1,0 +1,7 @@
+---
+roles:
+  - name: jonaspammer.bootstrap
+  - name: jonaspammer.core_dependencies
+collections:
+  - name: community.docker # only needed for molecule execution
+  - name: community.general

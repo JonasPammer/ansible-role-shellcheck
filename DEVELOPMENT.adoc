@@ -1,0 +1,129 @@
+[[development--versioning]]
+=== 📦 Versioning
+
+Versions are defined using https://git-scm.com/book/en/v2/Git-Basics-Tagging[Tags],
+which in turn are https://galaxy.ansible.com/docs/contributing/version.html[recognized and used] by Ansible Galaxy.
+
+When a new tag is pushed, https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml[
+a GitHub CI workflow] takes care of importing the role to my Ansible Galaxy Account.
+image:https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml/badge.svg[Release CI]
+
+==== Changelog by means of Releases
+When a new tag is pushed, an appropriate GitHub Release will be created
+by the Repository Maintainer to provide a proper human change log with a title and description.
+
+[[development--guidelines]]
+=== 💁 Ansible Role Development Guidelines
+
+Please take a look at my https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_GUIDELINES.adoc[
+Ansible Role Development Guidelines].
+
+If interested, also take a look at my https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_TIPS.adoc[
+Ansible Role Development (Best) Practices].
+
+[[cookiecutter]]
+=== 🍪 CookieCutter
+
+This Project shall be kept in sync with
+https://github.com/JonasPammer/cookiecutter-ansible-role[the CookieCutter it was originally templated from]
+using https://github.com/cruft/cruft[cruft] (if possible) or manual alteration (if needed)
+to the best extend possible.
+
+.Official Example Usage of `cruft update`
+____
+image::https://raw.githubusercontent.com/cruft/cruft/master/art/example_update.gif[Official Example Usage of `cruft update`]
+____
+
+=== 🧃 Ideal, Containerized Development Environments
+
+This Project offers definitions for 1-Click Containerized Development Environments through
+
+* https://code.visualstudio.com/docs/remote/containers[
+  Visual Studio Development Containers] (Local Docker Installation needed)
+* https://www.gitpod.io/[Gitpod] (Cloud-Native Visual Studio Code PaaS)
+
+These Containers even allow one to run docker containers inside of them (Docker-In-Docker, dind),
+allowing for molecule execution.
+
+[NOTE]
+=====
+You absolutely do not need to use it.
+Your development environment can be whatever you want.
+
+You don't even need to run tests on your local machine.
+This Project uses the magic of CI/CD to automatically check your contributions' validness
+(linting, most formatting, tests).
+=====
+
+==== Local Containerized Development Environment
+
+The _Visual Studio Code Remote - Containers_ extension lets one use a Docker container
+as a full-featured development environment.
+
+This Project offers such a devcontainer definition.
+By looking at its docker-compose and dockerfile definition,
+one may inform himself about everything there is to know about
+how to setup the ideal development environment,
+*even if you do not use this editor in combination with this feature*
+(Code as Documentation).
+
+To use it:
+
+1. Ensure you fullfill the link:https://code.visualstudio.com/docs/remote/containers#_system-requirements[
+   the System requirements of Visual Studio Code Development Containers],
+   optionally following the _Installation_-Section of the linked page section. +
+   This includes: Installing Docker, Installing Visual Studio Code itself, and Installing the necessarry Extension.
+2. Clone the project to your machine
+3. Open the folder of the repo in Visual Studio Code (_File - Open Folder…_).
+4. If you get a prompt at the lower right corner informing you about the presence of the
+devcontainer definition, you can press the accompanying button to enter it.
+*Otherwise,* you can also execute the Visual Studio Command `Remote-Containers: Open Folder in Container` yourself (_View - Command Palette_ -> _type in the mentioned command_).
+
+[TIP]
+====
+I recommend using `Remote-Containers: Rebuild Without Cache and Reopen in Container`
+once here and there as the devcontainer feature does have some problems recognizing
+changes made to its definition properly some times.
+====
+
+// commented out as open.vscode.com does not currently work as tracked in https://github.com/JonasPammer/ansible-role-bootstrap/issues/33
+// [NOTE]
+// =====
+// You may need to...
+//
+// * Install and configure https://www.docker.com/get-started[Docker] for your operating system.
+//
+//
+// * Install the https://aka.ms/vscode-remote/download/extension[Remote Development extension pack.]
+//
+// , even though modern VSCode offers to automatically do all that too
+// by just clicking a button that pops up (crazy).
+// =====
+
+[NOTE]
+=====
+You may need to configure your host system to enable the container to use your SSH Keys.
+
+The procedure is described https://code.visualstudio.com/docs/remote/containers#_sharing-git-credentials-with-your-container[
+in the official devcontainer docs under "Sharing Git credentials with your container"].
+=====
+
+// commented out as open.vscode.com does not currently work as tracked in https://github.com/JonasPammer/ansible-role-bootstrap/issues/33
+// [TIP]
+// ====
+// The "Open in Visual Studio Code" badge even got other fancy options worth checking out, especially // for non-relevant Ad-Hoc On-The-Go changes, being
+// "Open with Remote Repositories" or
+// "Open in VS Code for the Web".
+// ====
+
+==== Gitpod Containerized Development Environment
+
+__It's basically like what you would get by clicking on "Open in VS Code for the Web",
+with the exception that there's an actual machine running docker somewhere for you,
+so you basically got *all* the features --
+but also with all the benefits of a pre-defined, Containerized Development Environment.
+It even has a free plan.
+It's great for Ad-Hoc changes / fiddling around from anywhere on any kind of Computer Device I'm on right now.
+Big Baller's can even Self-Host the service.__
+
+https://gitpod.io/#https://github.com/JonasPammer/ansible-role-shellcheck[image:https://gitpod.io/button/open-in-gitpod.svg[Open in Gitpod]]

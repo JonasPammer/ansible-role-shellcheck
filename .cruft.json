@@ -1,0 +1,21 @@
+{
+  "template": "https://github.com/JonasPammer/cookiecutter-ansible-role.git",
+  "commit": "408a6f4a57b11cb9c07f3960041f5edea3c10736",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "full_name": "Jonas Pammer",
+      "email": "opensource@jonaspammer.at",
+      "code_of_conduct_enforcement_contact_email": "opensource@jonaspammer.at",
+      "github_user": "JonasPammer",
+      "galaxy_name": "jonaspammer",
+      "min_ansible_version": "2.9",
+      "allow_duplicates": "no",
+      "ansible_user_needs_to_become": "True",
+      "role_name": "shellcheck",
+      "project_short_purpose": "installing shellcheck, a static analysis tool for shell scripts",
+      "_template": "https://github.com/JonasPammer/cookiecutter-ansible-role.git"
+    }
+  },
+  "directory": null
+}

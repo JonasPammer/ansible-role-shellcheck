@@ -1,0 +1,41 @@
+---
+name: build self-contained README
+
+"on":
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/gh-pages.yml"
+      - "meta/main.yml"
+      - "CHANGELOG.adoc"
+      - "CODE_OF_CONDUCT.md"
+      - "CONTRIBUTING.adoc"
+      - "DEVELOPMENT.adoc"
+      - "LICENSE"
+      - "README.adoc"
+
+jobs:
+  gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.0"
+
+      - name: Install Asciidoctor
+        run: gem install --no-document asciidoctor rouge coderay
+
+      - name: Generate HTML
+        run: asciidoctor --backend=html5 --destination-dir docs --out-file index.html README.adoc
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./docs/

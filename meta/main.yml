@@ -1,0 +1,30 @@
+---
+galaxy_info:
+  role_name: "shellcheck"
+  description: "An ansible role for installing shellcheck, a static analysis tool for shell scripts."
+
+  author: "jonaspammer"
+  license: MIT
+
+  min_ansible_version: "2.9"
+  platforms:
+    - name: EL # (Enterprise Linux)
+      versions:
+        - "7" # actively tested: centos7
+        - "8" # actively tested: rockylinux8
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - stretch # debian9
+        - buster # debian10 (actively tested)
+        - bullseye # debian11 (actively tested)
+    - name: Ubuntu
+      versions:
+        - bionic # ubuntu1804 (actively tested)
+        - focal # ubuntu2004 (actively tested)
+
+  galaxy_tags: []
+
+dependencies: []
