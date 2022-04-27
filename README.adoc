@@ -106,10 +106,10 @@ Enables checking the checksum of the downloaded release file.
 [source,yaml]
 ----
 shellcheck_release_checksums:
-  "darwin.x86_64": 
-  "linux.aarch64": 
-  "linux.armv6hf": 
-  "linux.x86_64": 
+  "darwin.x86_64":
+  "linux.aarch64":
+  "linux.armv6hf":
+  "linux.x86_64":
 ----
 https://docs.ansible.com/ansible/2.9/modules/get_url_module.html#parameter-checksum[Format of checksums]:
 `<algorithm>:<checksum|url>`, e.g.
