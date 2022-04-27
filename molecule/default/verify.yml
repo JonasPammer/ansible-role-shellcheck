@@ -1,0 +1,27 @@
+---
+- name: output some generally helpful debug information about the provisioned machine
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - ansible.builtin.include_tasks: debug.yml
+
+### Actual Role Verification Tasks:
+- name: Verify
+  hosts: all
+
+  tasks:
+    - name: create example bash file
+      ansible.builtin.shell: |
+        cat << EOF > /test.bash
+        #!/bin/bash
+
+        echo "hello"
+        EOF
+
+    - name: Run 'shellcheck --version' (ansible.builtin.command).
+      ansible.builtin.command: shellcheck --version
+
+    - name: Run 'shellcheck --version' (ansible.builtin.shell).
+      ansible.builtin.shell: shellcheck --version

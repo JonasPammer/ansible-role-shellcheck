@@ -1,0 +1,7 @@
+---
+# tasks file of ansible-role jonaspammer.shellcheck
+
+- name: Install shellcheck system package.
+  package:
+    name: "shellcheck"
+    state: present

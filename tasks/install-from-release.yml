@@ -1,0 +1,37 @@
+---
+# tasks file of ansible-role jonaspammer.shellcheck
+
+- name: set/determine shellcheck arch string using 'ansible_architecture' (x86_64)
+  ansible.builtin.set_fact:
+    shellcheck__register_fact_shellcheck_architecture: "linux.x86_64"
+  when: ansible_architecture == 'x86_64'
+
+- name: fail when shellcheck arch string could not be determined
+  ansible.builtin.fail:
+  when: shellcheck__register_fact_shellcheck_architecture is not defined
+
+- name: Download archive containing pre-compiled shellcheck from GitHub to temporary directory (never changes).
+  ansible.builtin.get_url:
+    url:
+      "https://github.com/koalaman/shellcheck/releases/download/{{ shellcheck_release }}/\
+      shellcheck-{{ shellcheck_release }}.{{ shellcheck__register_fact_shellcheck_architecture }}.tar.xz"
+    dest: "/tmp/shellcheck-{{ shellcheck_release }}.tar.xz"
+    checksum:
+      "{{ shellcheck_release_checksums[shellcheck__register_fact_shellcheck_architecture]
+      if shellcheck_release_checksum_check else omit }}"
+  changed_when: false
+
+- name: Unarchive downloaded shellcheck release archive to temporary directory (never changes).
+  ansible.builtin.unarchive:
+    src: "/tmp/shellcheck-{{ shellcheck_release }}.tar.xz"
+    remote_src: true
+    dest: "/tmp"
+  changed_when: false
+
+- name: Copy shellcheck from temporary directory to '/usr/local/bin/shellcheck' and ensure correct owner/mode.
+  ansible.builtin.copy:
+    src: "/tmp/shellcheck-{{ shellcheck_release }}/shellcheck"
+    remote_src: true
+    dest: "/usr/local/bin/shellcheck"
+    mode: u=rwx,g=rx,o=rx
+    owner: "root"

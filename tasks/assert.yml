@@ -1,10 +1,9 @@
 ---
 # tasks file for testing that variables of ansible-role jonaspammer.shellcheck are set correctly
 
-- name: test if variable_name is set correctly
+- name: test if 'shellcheck_install_method' is set correctly
   ansible.builtin.assert:
     that:
-      - variable_name is defined
-      - variable_name is number
-      - variable_name >= 0
+      - shellcheck_install_method is defined
+      - shellcheck_install_method in ["release", "source", "system"]
     quiet: true

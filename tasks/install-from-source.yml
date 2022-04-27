@@ -1,0 +1,5 @@
+---
+# tasks file of ansible-role jonaspammer.shellcheck
+
+- name: shellcheck source installation not yet implemented
+  ansible.builtin.fail:
