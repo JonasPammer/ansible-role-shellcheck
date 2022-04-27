@@ -5,7 +5,7 @@
   gather_facts: true
 
   tasks:
-    - ansible.builtin.include_tasks: ../debug.yml
+    - ansible.builtin.include_tasks: ../resources/debug.yml
 
 ### Actual Role Verification Tasks:
 - name: Verify
