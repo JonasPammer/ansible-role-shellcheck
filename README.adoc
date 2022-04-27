@@ -92,29 +92,30 @@ NOT IMPLEMENTED YET.
 
 [source,yaml]
 ----
-shellcheck_release: v0.8.0
+shellcheck_release: stable
 ----
 https://github.com/koalaman/shellcheck/releases[shellcheck release] to use.
 Special values "`latest`" and "`stable`" can be used.
 
 [source,yaml]
 ----
-shellcheck_release_checksum_check: true
+shellcheck_release_checksum_check: false
 ----
 Enables checking the checksum of the downloaded release file.
 
 [source,yaml]
 ----
 shellcheck_release_checksums:
-  "darwin.x86_64": "sha1:9bc3fce6784be81a2e6dc8a6019258ebb6782081"
-  "linux.aarch64": "sha1:cf996b7980ac32ddf75b5f45e9f249501907082e"
-  "linux.armv6hf": "sha1:9586a4a84185828cb285f1b743d88a317171f74f"
-  "linux.x86_64": "sha1:c4a6087437fe65aacd8ec588ccf47574a5dc4254"
+  "darwin.x86_64":
+  "linux.aarch64":
+  "linux.armv6hf":
+  "linux.x86_64":
 ----
 https://docs.ansible.com/ansible/2.9/modules/get_url_module.html#parameter-checksum[Format of checksums]:
 `<algorithm>:<checksum|url>`, e.g.
 `checksum="sha256:D98291AC[...]B6DC7B97"`,
-`checksum="sha256:http://example.com/path/sha256sum.txt"`
+`checksum="sha256:http://example.com/path/sha256sum.txt"` -
+See <<example_playbooks>>.
 
 
 [[dependencies]]
@@ -168,7 +169,13 @@ roles:
     - "jonaspammer.shellcheck"
 
 vars:
-    shellcheck_release: "stable"
+    shellcheck_release: v0.8.0
+    shellcheck_release_checksum_check: true
+    shellcheck_release_checksums:
+        "darwin.x86_64": "sha1:9bc3fce6784be81a2e6dc8a6019258ebb6782081"
+        "linux.aarch64": "sha1:cf996b7980ac32ddf75b5f45e9f249501907082e"
+        "linux.armv6hf": "sha1:9586a4a84185828cb285f1b743d88a317171f74f"
+        "linux.x86_64": "sha1:c4a6087437fe65aacd8ec588ccf47574a5dc4254"
 ----
 ====
 
