@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+
+  roles:
+    - role: "ansible-role-shellcheck"
+
+  vars:
+    # as per README.adoc example:
+    shellcheck_release: v0.8.0
+    shellcheck_release_checksum_check: true
+    shellcheck_release_checksums:
+      "darwin.x86_64": "sha1:9bc3fce6784be81a2e6dc8a6019258ebb6782081"
+      "linux.aarch64": "sha1:cf996b7980ac32ddf75b5f45e9f249501907082e"
+      "linux.armv6hf": "sha1:9586a4a84185828cb285f1b743d88a317171f74f"
+      "linux.x86_64": "sha1:c4a6087437fe65aacd8ec588ccf47574a5dc4254"

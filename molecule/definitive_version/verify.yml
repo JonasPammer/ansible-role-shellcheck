@@ -12,16 +12,14 @@
   hosts: all
 
   tasks:
-    - name: create example bash file
-      ansible.builtin.shell: |
-        cat << EOF > /test.bash
-        #!/bin/bash
-
-        echo "hello"
-        EOF
-
     - name: Run 'shellcheck --version' (ansible.builtin.command).
       ansible.builtin.command: shellcheck --version
 
-    - name: Run 'shellcheck --version' (ansible.builtin.shell).
-      ansible.builtin.shell: shellcheck --version
+    - name: Fetch shellcheck version.
+      ansible.builtin.shell: "shellcheck --version | grep 'version: ' | awk '{ print $2 }'"
+      register: shellcheck__register_shell_shellcheck_version_awk
+
+    - name: Check shellcheck version.
+      ansible.builtin.assert:
+        that:
+          - shellcheck__register_shell_shellcheck_version_awk.stdout == "0.8.0"
