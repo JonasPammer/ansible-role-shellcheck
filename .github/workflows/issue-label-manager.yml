@@ -5,8 +5,6 @@ name: create declared labels
   push:
     branches:
       - master
-    paths:
-      - ".github/labels.json"
 
 jobs:
   labels:
