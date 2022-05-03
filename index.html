@@ -664,8 +664,7 @@ pre.rouge {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/ci.yml"><span class="image"><img src="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/ci.yml/badge.svg" alt="Testing CI"></span></a>
-<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FJonasPammer%2Fansible-role-shellcheck?ref=badge_shield"><span class="image"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FJonasPammer%2Fansible-role-shellcheck.svg?type=small" alt="FOSSA Licenses Status"></span></a></p>
+<p><a href="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/ci.yml"><span class="image"><img src="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/ci.yml/badge.svg" alt="Testing CI"></span></a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://conventionalcommits.org"><span class="image"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt="Conventional Commits"></span></a>
@@ -697,24 +696,27 @@ pre.rouge {
 <li><a href="#example_playbooks">📚 Example Playbook Usages</a></li>
 <li><a href="#development">📝 Development</a>
 <ul class="sectlevel2">
-<li><a href="#development--versioning">📦 Versioning</a>
-<ul class="sectlevel3">
-<li><a href="#_changelog_by_means_of_releases">Changelog by means of Releases</a></li>
-</ul>
-</li>
-<li><a href="#development--guidelines">💁 Ansible Role Development Guidelines</a></li>
+<li><a href="#development-dependencies">📌 Development Dependencies</a></li>
 <li><a href="#cookiecutter">🍪 CookieCutter</a></li>
-<li><a href="#_ideal_containerized_development_environments">🧃 Ideal, Containerized Development Environments</a>
+<li><a href="#versioning">📦 Versioning</a>
 <ul class="sectlevel3">
-<li><a href="#_local_containerized_development_environment">Local Containerized Development Environment</a></li>
-<li><a href="#_gitpod_containerized_development_environment">Gitpod Containerized Development Environment</a></li>
+<li><a href="#_changelog">🕗 Changelog</a></li>
 </ul>
 </li>
+<li><a href="#pre-commit">ℹ️ General Linting and Styling Conventions</a></li>
+<li><a href="#development-guidelines">ℹ️ Ansible Role Development Guidelines</a></li>
+<li><a href="#testing">🧪 Testing</a>
+<ul class="sectlevel3">
+<li><a href="#_debugging_a_molecule_container">🐛 Debugging a Molecule Container</a></li>
+</ul>
+</li>
+<li><a href="#development-container-extra">🧃 TIP: Containerized Ideal Development Environment</a></li>
 </ul>
 </li>
 <li><a href="#contributing">💪 Contributing</a>
 <ul class="sectlevel2">
 <li><a href="#_preamble">🤝 Preamble</a></li>
+<li><a href="#cookiecutter--contributing">🍪 CookieCutter</a></li>
 <li><a href="#_conventional_commits">💬 Conventional Commits</a></li>
 <li><a href="#_getting_started">🚀 Getting Started</a>
 <ul class="sectlevel3">
@@ -765,17 +767,17 @@ pre.rouge {
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">EL</span> <span class="c1"># (Enterprise Linux)</span>
       <span class="na">versions</span><span class="pi">:</span>
         <span class="pi">-</span> <span class="s2">"</span><span class="s">7"</span> <span class="c1"># actively tested: centos7</span>
-        <span class="pi">-</span> <span class="s2">"</span><span class="s">8"</span> <span class="c1"># actively tested: rockylinux8</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">8"</span> <span class="c1"># actively tested: rockylinux8, centos8</span>
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Fedora</span>
       <span class="na">versions</span><span class="pi">:</span>
-        <span class="pi">-</span> <span class="s">all</span>
+        <span class="pi">-</span> <span class="s2">"</span><span class="s">35"</span>
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Debian</span>
       <span class="na">versions</span><span class="pi">:</span>
-        <span class="pi">-</span> <span class="s">stretch</span> <span class="c1"># debian9</span>
         <span class="pi">-</span> <span class="s">buster</span> <span class="c1"># debian10 (actively tested)</span>
         <span class="pi">-</span> <span class="s">bullseye</span> <span class="c1"># debian11 (actively tested)</span>
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Ubuntu</span>
       <span class="na">versions</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">xenial</span> <span class="c1"># ubuntu1604 (actively tested)</span>
         <span class="pi">-</span> <span class="s">bionic</span> <span class="c1"># ubuntu1804 (actively tested)</span>
         <span class="pi">-</span> <span class="s">focal</span> <span class="c1"># ubuntu2004 (actively tested)</span>
 
@@ -982,33 +984,21 @@ as well as the recursive tree of their soft dependencies.</p>
 <h2 id="development">📝 Development</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="development--versioning">📦 Versioning</h3>
+<h3 id="development-dependencies">📌 Development Dependencies</h3>
 <div class="paragraph">
-<p>Versions are defined using <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">Tags</a>,
-which in turn are <a href="https://galaxy.ansible.com/docs/contributing/version.html">recognized and used</a> by Ansible Galaxy.</p>
+<p>Development Dependencies are defined in a
+<a href="https://pip.pypa.io/en/stable/user_guide/#requirements-files">pip requirements file</a>
+named <code>requirements-dev.txt</code>.
+Example Installation Instructions for Linux are shown below:</p>
 </div>
-<div class="paragraph">
-<p>When a new tag is pushed, <a href="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml">
-a GitHub CI workflow</a> takes care of importing the role to my Ansible Galaxy Account.
-<span class="image"><img src="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml/badge.svg" alt="Release CI"></span></p>
+<div class="listingblock">
+<div class="content">
+<pre># "optional": create a python virtualenv and activate it for the current shell session
+$ python3 -m venv venv
+$ source venv/bin/activate
+
+$ python3 -m pip install -r requirements-dev.txt</pre>
 </div>
-<div class="sect3">
-<h4 id="_changelog_by_means_of_releases">Changelog by means of Releases</h4>
-<div class="paragraph">
-<p>When a new tag is pushed, an appropriate GitHub Release will be created
-by the Repository Maintainer to provide a proper human change log with a title and description.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="development--guidelines">💁 Ansible Role Development Guidelines</h3>
-<div class="paragraph">
-<p>Please take a look at my <a href="https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_GUIDELINES.adoc">
-Ansible Role Development Guidelines</a>.</p>
-</div>
-<div class="paragraph">
-<p>If interested, also take a look at my <a href="https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_TIPS.adoc">
-Ansible Role Development (Best) Practices</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1031,24 +1021,36 @@ to the best extend possible.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_ideal_containerized_development_environments">🧃 Ideal, Containerized Development Environments</h3>
+<h3 id="versioning">📦 Versioning</h3>
 <div class="paragraph">
-<p>This Project offers definitions for 1-Click Containerized Development Environments through</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://code.visualstudio.com/docs/remote/containers">
-Visual Studio Development Containers</a> (Local Docker Installation needed)</p>
-</li>
-<li>
-<p><a href="https://www.gitpod.io/">Gitpod</a> (Cloud-Native Visual Studio Code PaaS)</p>
-</li>
-</ul>
+<p>Versions are defined using <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">Tags</a>,
+which in turn are <a href="https://galaxy.ansible.com/docs/contributing/version.html">recognized and used</a> by Ansible Galaxy.</p>
 </div>
 <div class="paragraph">
-<p>These Containers even allow one to run docker containers inside of them (Docker-In-Docker, dind),
-allowing for molecule execution.</p>
+<p>When a new tag is pushed, <a href="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml">
+a GitHub CI workflow</a> takes care of importing the role to my Ansible Galaxy Account.
+<span class="image"><img src="https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml/badge.svg" alt="Release CI"></span></p>
+</div>
+<div class="sect3">
+<h4 id="_changelog">🕗 Changelog</h4>
+<div class="paragraph">
+<p>When a new tag is pushed, an appropriate GitHub Release will be created
+by the Repository Maintainer to provide a proper human change log with a title and description.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pre-commit">ℹ️ General Linting and Styling Conventions</h3>
+<div class="paragraph">
+<p>General Linting and Styling Conventions are
+<a href="https://stackoverflow.blog/2020/07/20/linters-arent-in-your-way-theyre-on-your-side/"><strong>automatically</strong> held up to Standards</a>
+by various <a href="https://pre-commit.com/"><code>pre-commit</code></a> hooks, at least to some extend.</p>
+</div>
+<div class="paragraph">
+<p>Automatic Execution of pre-commit is done on each Contribution using
+<a href="https://pre-commit.ci/"><code>pre-commit.ci</code></a><a href="#note_pre-commit-ci">*</a>.
+Pull Requests even automatically get fixed by the same tool,
+at least by hooks that automatically alter files.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1057,32 +1059,154 @@ allowing for molecule execution.</p>
 <div class="title">Note</div>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>You absolutely do not need to use it.
-Your development environment can be whatever you want.</p>
+Not to confuse:
+Although some pre-commit hooks may be able to warn you about script-analyzed flaws in syntax or even code to some extend (for which reason pre-commit&#8217;s hooks are <strong>part of</strong> the test suite),
+pre-commit itself does not run any real Test Suites.
+For Information on Testing, see <a href="#testing">🧪 Testing</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div id="note_pre-commit-ci" class="paragraph">
+<p>Nevertheless, I recommend you to integrate pre-commit into your local development workflow yourself.</p>
 </div>
 <div class="paragraph">
-<p>You don&#8217;t even need to run tests on your local machine.
-This Project uses the magic of CI/CD to automatically check your contributions' validness
-(linting, most formatting, tests).</p>
+<p>This can be done by cd&#8217;ing into the directory of your cloned project and running <code>pre-commit install</code>.
+Doing so will make git run pre-commit checks on every commit you make,
+aborting the commit themselves if a hook alarm&#8217;ed.</p>
+</div>
+<div class="paragraph">
+<p>You can also, for example, execute pre-commit&#8217;s hooks at any time by running <code>pre-commit run --all-files</code>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_local_containerized_development_environment">Local Containerized Development Environment</h4>
+</div>
+<div class="sect2">
+<h3 id="development-guidelines">ℹ️ Ansible Role Development Guidelines</h3>
 <div class="paragraph">
-<p>The <em>Visual Studio Code Remote - Containers</em> extension lets one use a Docker container
-as a full-featured development environment.</p>
+<p>Please take a look at my <a href="https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_GUIDELINES.adoc">
+Ansible Role Development Guidelines</a>.</p>
 </div>
 <div class="paragraph">
-<p>This Project offers such a devcontainer definition.
-By looking at its docker-compose and dockerfile definition,
-one may inform himself about everything there is to know about
-how to setup the ideal development environment,
-<strong>even if you do not use this editor in combination with this feature</strong>
-(Code as Documentation).</p>
+<p>If interested, I&#8217;ve also written down some
+<a href="https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_TIPS.adoc">
+General Ansible Role Development (Best) Practices</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testing">🧪 Testing</h3>
+<div class="paragraph">
+<p>Automatic Tests are run on each Contribution using GitHub Workflows.</p>
+</div>
+<div class="paragraph">
+<p>The Tests primarily resolve around running
+<a href="https://molecule.readthedocs.io/en/latest/">Molecule</a>
+on a varying set of virtualized distributions and using various ansible versions,
+as detailed in <a href="https://github.com/JonasPammer/ansible-roles">JonasPammer/ansible-roles</a>.</p>
+</div>
+<div class="paragraph">
+<p>The System Requirements for local testing are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Python3 with <a href="#development-dependencies">📌 Development Dependencies</a> installed</p>
+</li>
+<li>
+<p>Docker</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To run the tests, simply run <code>tox</code> on the command line.
+You can pass an optional environment variable to define the distribution of the
+Docker container that will be spun up by molecule:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ MOLECULE_DISTRO=centos7 tox</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For a list of possible values fed to <code>MOLECULE_DISTRO</code>,
+take a look at the matrix defined in <a href=".github/workflows/ci.yml" class="bare">.github/workflows/ci.yml</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_debugging_a_molecule_container">🐛 Debugging a Molecule Container</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run your molecule tests with the option <code>MOLECULE_DESTROY=never</code>, e.g.:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>MOLECULE_DESTROY=never MOLECULE_DISTRO=<mark>ubuntu1604</mark> tox -e py3-ansible-<mark>2.9</mark></strong>
+...
+  TASK [ansible-role-pip : (redacted).] ************************
+  failed: [instance-py3-ansible-2.9] => changed=false
+...
+ ___________________________________ summary ____________________________________
+  pre-commit: commands succeeded
+ERROR:   py3-ansible-2.9: commands failed</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Find out the name of the molecule-provisioned docker container:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker ps</strong>
+<mark>30e9b8d59cdf</mark>   geerlingguy/docker-debian10-ansible:latest   "/lib/systemd/systemd"   8 minutes ago   Up 8 minutes                                                                                                    instance-py3-ansible-2.9</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Get into a bash Shell of the container, and do your debugging:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker exec -it <mark>30e9b8d59cdf</mark> /bin/bash</strong>
+
+root@instance-py3-ansible-2:/#
+root@instance-py3-ansible-2:/# python3 --version
+Python 3.8.10
+root@instance-py3-ansible-2:/# ...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>After you finished your debugging, exit it and destroy the container:</p>
+<div class="listingblock">
+<div class="content">
+<pre>root@instance-py3-ansible-2:/# <strong>exit</strong>
+
+$ <strong>docker stop <mark>30e9b8d59cdf</mark></strong>
+
+$ <strong>docker container rm <mark>30e9b8d59cdf</mark></strong>
+<em>or</em>
+$ <strong>docker container prune</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="development-container-extra">🧃 TIP: Containerized Ideal Development Environment</h3>
+<div class="paragraph">
+<p>This Project offers a definition for a "1-Click Containerized Development Environment".</p>
+</div>
+<div class="paragraph">
+<p>This Container even allow one to run docker containers inside of them (Docker-In-Docker, dind),
+allowing for molecule execution.</p>
 </div>
 <div class="paragraph">
 <p>To use it:</p>
@@ -1090,10 +1214,10 @@ how to setup the ideal development environment,
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure you fullfill the <a href="https://code.visualstudio.com/docs/remote/containers#<em>system-requirements">
+<p>Ensure you fullfill the <a href="https://code.visualstudio.com/docs/remote/containers#_system-requirements">
 the System requirements of Visual Studio Code Development Containers</a>,
-optionally following the _Installation</em>-Section of the linked page section.<br>
-This includes: Installing Docker, Installing Visual Studio Code itself, and Installing the necessarry Extension.</p>
+optionally following the <em>Installation</em>-Section of the linked page section.<br>
+This includes: Installing Docker, Installing Visual Studio Code itself, and Installing the necessary Extension.</p>
 </li>
 <li>
 <p>Clone the project to your machine</p>
@@ -1102,8 +1226,8 @@ This includes: Installing Docker, Installing Visual Studio Code itself, and Inst
 <p>Open the folder of the repo in Visual Studio Code (<em>File - Open Folder…</em>).</p>
 </li>
 <li>
-<p>If you get a prompt at the lower right corner informing you about the presence of the
-devcontainer definition, you can press the accompanying button to enter it.
+<p>If you get a prompt at the lower right corner informing you about the presence of the devcontainer definition,
+you can press the accompanying button to enter it.
 <strong>Otherwise,</strong> you can also execute the Visual Studio Command <code>Remote-Containers: Open Folder in Container</code> yourself (<em>View - Command Palette</em> &#8594; <em>type in the mentioned command</em>).</p>
 </li>
 </ol>
@@ -1143,26 +1267,15 @@ in the official devcontainer docs under "Sharing Git credentials with your conta
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_gitpod_containerized_development_environment">Gitpod Containerized Development Environment</h4>
-<div class="paragraph">
-<p><em>It&#8217;s basically like what you would get by clicking on "Open in VS Code for the Web",
-with the exception that there&#8217;s an actual machine running docker somewhere for you,
-so you basically got <strong>all</strong> the features&#8201;&#8212;&#8201;but also with all the benefits of a pre-defined, Containerized Development Environment.
-It even has a free plan.
-It&#8217;s great for Ad-Hoc changes / fiddling around from anywhere on any kind of Computer Device I&#8217;m on right now.
-Big Baller&#8217;s can even Self-Host the service.</em></p>
-</div>
-<div class="paragraph">
-<p><a href="https://gitpod.io/#https://github.com/JonasPammer/ansible-role-shellcheck"><span class="image"><img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod"></span></a></p>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="contributing">💪 Contributing</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The following sections are generic in nature and are used to help new contributors.
+The actual "Development Documentation" of this project is found under <a href="#development">📝 Development</a>.</p>
+</div>
 <div class="sect2">
 <h3 id="_preamble">🤝 Preamble</h3>
 <div class="paragraph">
@@ -1171,6 +1284,20 @@ Big Baller&#8217;s can even Self-Host the service.</em></p>
 <div class="paragraph">
 <p>Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project.
 In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cookiecutter--contributing">🍪 CookieCutter</h3>
+<div class="paragraph">
+<p>This Project owns many of its files to
+<a href="https://github.com/JonasPammer/cookiecutter-ansible-role">the CookieCutter it was originally templated from</a>.</p>
+</div>
+<div class="paragraph">
+<p>Please check if the edit you have in mind is actually applicable to the template
+and if so make an appropriate change there instead.
+Your change may also be applicable partly to the template
+as well as partly to something specific to this project,
+in which case you would be creating multiple PRs.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1184,7 +1311,7 @@ Only core contributors, i.e. those with rights to push to this project&#8217;s b
 (e.g. to allow for automatic version determination and changelog generation to work).</p>
 </div>
 <div class="paragraph">
-<p>🚨 <strong>However, you still need to make sure that you create small, self-contained commits and pull requests.</strong>
+<p>🚨 <strong>However, it is still a good idea to make sure that you create small, self-contained commits and pull requests.</strong>
 <em>More on this general concept may be found in in the following sections and the blogs linked in it.</em></p>
 </div>
 </div>
@@ -1287,7 +1414,7 @@ it&#8217;s best to open an Issue to discuss your proposal first.</p>
 <p>Please refer to the
 <a href="https://github.com/JonasPammer/ansible-role-shellcheck/releases">Release Page of this Repository</a>
 for a human changelog of the corresponding
-<a href="https://github.com/JonasPammer/ansible-role-bootstrap/tags">Tags (Versions) of this Project</a>.</p>
+<a href="https://github.com/JonasPammer/ansible-role-shellcheck/tags">Tags (Versions) of this Project</a>.</p>
 </div>
 <div class="paragraph">
 <p>Note that this Project adheres to Semantic Versioning.
@@ -1324,15 +1451,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</pre>
 </div>
 </div>
-<div class="paragraph">
-<p><a href="https://app.fossa.com/projects/git%2Bgithub.com%2FJonasPammer%2Fansible-role-shellcheck?ref=badge_large"><span class="image"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FJonasPammer%2Fansible-role-shellcheck.svg?type=large" alt="FOSSA Licensing Information"></span></a></p>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-27 14:23:37 UTC
+Last updated 2022-05-03 12:02:07 UTC
 </div>
 </div>
 </body>
