@@ -1,13 +1,26 @@
-// Contribution File for ansible-role "jonaspammer.shellcheck"
 // Included in README.adoc
 :toc:
 :toclevels: 3
+
+The following sections are generic in nature and are used to help new contributors.
+The actual "Development Documentation" of this project is found under <<development>>.
 
 === 🤝 Preamble
 First off, thank you for considering contributing to this Project.
 
 Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project.
 In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
+
+[[cookiecutter--contributing]]
+=== 🍪 CookieCutter
+This Project owns many of its files to
+https://github.com/JonasPammer/cookiecutter-ansible-role[the CookieCutter it was originally templated from].
+
+Please check if the edit you have in mind is actually applicable to the template
+and if so make an appropriate change there instead.
+Your change may also be applicable partly to the template
+as well as partly to something specific to this project,
+in which case you would be creating multiple PRs.
 
 === 💬 Conventional Commits
 
@@ -18,7 +31,7 @@ as pull requests are being squash merged into one commit in the project.
 Only core contributors, i.e. those with rights to push to this project's branches, must follow it
 (e.g. to allow for automatic version determination and changelog generation to work).
 
-🚨 **However, you still need to make sure that you create small, self-contained commits and pull requests.**
+🚨 **However, it is still a good idea to make sure that you create small, self-contained commits and pull requests.**
 _More on this general concept may be found in in the following sections and the blogs linked in it._
 
 === 🚀 Getting Started

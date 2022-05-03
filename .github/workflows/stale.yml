@@ -2,6 +2,9 @@
 # This workflow warns and then closes issues and PRs that have had no activity (updates/comments) for a specified amount of time.
 # https://github.com/actions/stale
 name: mark stale issues and pull requests
+permissions:
+  issues: write
+  pull-requests: write
 "on":
   schedule:
     # At 03:31.

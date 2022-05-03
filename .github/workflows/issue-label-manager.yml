@@ -1,5 +1,8 @@
 ---
 name: create declared labels
+permissions:
+  issues: write
+  pull-requests: write
 "on":
   issues:
   push:

@@ -19,19 +19,17 @@ repos:
         exclude: ".devcontainer/devcontainer.json"
       - id: check-toml
       - id: check-xml
-      - id: debug-statements
-      # TODO compare to 'thoughtworks/talisman', 'yelp/detect-secrets', 'githuardian/ggshield'
-      - id: detect-private-key
-      # - id: detect-aws-credentials
       - id: mixed-line-ending
       - id: trailing-whitespace
 
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.6
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.2.0
     hooks:
-      - id: git-check # Configure in .gitattributes
-      - id: script-must-have-extension
-      - id: script-must-not-have-extension
+      - id: detect-secrets
+        exclude: |
+          (?x)^(
+              .cruft.json|
+          )$
 
   # opinionated code formatter for all things frontend (also includes Markdown, JSON, YAML)
   - repo: https://github.com/pre-commit/mirrors-prettier

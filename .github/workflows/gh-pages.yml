@@ -1,6 +1,8 @@
 ---
 name: build self-contained README
-
+permissions:
+  pages: write
+  contents: write
 "on":
   push:
     branches:

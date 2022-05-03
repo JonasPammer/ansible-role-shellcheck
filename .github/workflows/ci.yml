@@ -1,5 +1,6 @@
 ---
 name: CI (Lint + Molecule)
+permissions: read-all
 "on":
   workflow_dispatch:
     inputs:
@@ -64,12 +65,15 @@ jobs:
     strategy:
       matrix:
         distro:
-          - rockylinux8
           - centos7
-          - ubuntu2004
-          - ubuntu1804
-          - debian11
+          - centos8
           - debian10
+          - debian11
+          - fedora35
+          - rockylinux8
+          - ubuntu1604
+          - ubuntu1804
+          - ubuntu2004
 
     steps:
       - name: Check out the codebase.

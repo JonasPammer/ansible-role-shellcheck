@@ -1,25 +1,17 @@
-[[development--versioning]]
-=== 📦 Versioning
+[[development-dependencies]]
+=== 📌 Development Dependencies
+Development Dependencies are defined in a
+https://pip.pypa.io/en/stable/user_guide/#requirements-files[pip requirements file]
+named `requirements-dev.txt`.
+Example Installation Instructions for Linux are shown below:
 
-Versions are defined using https://git-scm.com/book/en/v2/Git-Basics-Tagging[Tags],
-which in turn are https://galaxy.ansible.com/docs/contributing/version.html[recognized and used] by Ansible Galaxy.
+----
+# "optional": create a python virtualenv and activate it for the current shell session
+$ python3 -m venv venv
+$ source venv/bin/activate
 
-When a new tag is pushed, https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml[
-a GitHub CI workflow] takes care of importing the role to my Ansible Galaxy Account.
-image:https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml/badge.svg[Release CI]
-
-==== Changelog by means of Releases
-When a new tag is pushed, an appropriate GitHub Release will be created
-by the Repository Maintainer to provide a proper human change log with a title and description.
-
-[[development--guidelines]]
-=== 💁 Ansible Role Development Guidelines
-
-Please take a look at my https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_GUIDELINES.adoc[
-Ansible Role Development Guidelines].
-
-If interested, also take a look at my https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_TIPS.adoc[
-Ansible Role Development (Best) Practices].
+$ python3 -m pip install -r requirements-dev.txt
+----
 
 [[cookiecutter]]
 === 🍪 CookieCutter
@@ -34,49 +26,156 @@ ____
 image::https://raw.githubusercontent.com/cruft/cruft/master/art/example_update.gif[Official Example Usage of `cruft update`]
 ____
 
-=== 🧃 Ideal, Containerized Development Environments
 
-This Project offers definitions for 1-Click Containerized Development Environments through
+[[versioning]]
+=== 📦 Versioning
 
-* https://code.visualstudio.com/docs/remote/containers[
-  Visual Studio Development Containers] (Local Docker Installation needed)
-* https://www.gitpod.io/[Gitpod] (Cloud-Native Visual Studio Code PaaS)
+Versions are defined using https://git-scm.com/book/en/v2/Git-Basics-Tagging[Tags],
+which in turn are https://galaxy.ansible.com/docs/contributing/version.html[recognized and used] by Ansible Galaxy.
 
-These Containers even allow one to run docker containers inside of them (Docker-In-Docker, dind),
-allowing for molecule execution.
+When a new tag is pushed, https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml[
+a GitHub CI workflow] takes care of importing the role to my Ansible Galaxy Account.
+image:https://github.com/JonasPammer/ansible-role-shellcheck/actions/workflows/release-to-galaxy.yml/badge.svg[Release CI]
+
+==== 🕗 Changelog
+When a new tag is pushed, an appropriate GitHub Release will be created
+by the Repository Maintainer to provide a proper human change log with a title and description.
+
+
+[[pre-commit]]
+=== ℹ️ General Linting and Styling Conventions
+General Linting and Styling Conventions are
+https://stackoverflow.blog/2020/07/20/linters-arent-in-your-way-theyre-on-your-side/[*automatically* held up to Standards]
+by various https://pre-commit.com/[`pre-commit`] hooks, at least to some extend.
+
+Automatic Execution of pre-commit is done on each Contribution using
+https://pre-commit.ci/[`pre-commit.ci`]<<note_pre-commit-ci,*>>.
+Pull Requests even automatically get fixed by the same tool,
+at least by hooks that automatically alter files.
 
 [NOTE]
-=====
-You absolutely do not need to use it.
-Your development environment can be whatever you want.
+Not to confuse:
+Although some pre-commit hooks may be able to warn you about script-analyzed flaws in syntax or even code to some extend (for which reason pre-commit's hooks are *part of* the test suite),
+pre-commit itself does not run any real Test Suites.
+For Information on Testing, see <<testing>>.
 
-You don't even need to run tests on your local machine.
-This Project uses the magic of CI/CD to automatically check your contributions' validness
-(linting, most formatting, tests).
-=====
+[TIP]
+====
+[[note_pre-commit-ci]]
+Nevertheless, I recommend you to integrate pre-commit into your local development workflow yourself.
 
-==== Local Containerized Development Environment
+This can be done by cd'ing into the directory of your cloned project and running `pre-commit install`.
+Doing so will make git run pre-commit checks on every commit you make,
+aborting the commit themselves if a hook alarm'ed.
 
-The _Visual Studio Code Remote - Containers_ extension lets one use a Docker container
-as a full-featured development environment.
+You can also, for example, execute pre-commit's hooks at any time by running `pre-commit run --all-files`.
+====
 
-This Project offers such a devcontainer definition.
-By looking at its docker-compose and dockerfile definition,
-one may inform himself about everything there is to know about
-how to setup the ideal development environment,
-*even if you do not use this editor in combination with this feature*
-(Code as Documentation).
+
+[[development-guidelines]]
+=== ℹ️ Ansible Role Development Guidelines
+
+Please take a look at my https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_GUIDELINES.adoc[
+Ansible Role Development Guidelines].
+
+If interested, I've also written down some
+https://github.com/JonasPammer/cookiecutter-ansible-role/blob/master/ROLE_DEVELOPMENT_TIPS.adoc[
+General Ansible Role Development (Best) Practices].
+
+
+[[testing]]
+=== 🧪 Testing
+Automatic Tests are run on each Contribution using GitHub Workflows.
+
+The Tests primarily resolve around running
+https://molecule.readthedocs.io/en/latest/[Molecule]
+on a varying set of virtualized distributions and using various ansible versions,
+as detailed in https://github.com/JonasPammer/ansible-roles[JonasPammer/ansible-roles].
+
+The System Requirements for local testing are as follows:
+
+* Python3 with <<development-dependencies>> installed
+* Docker
+
+To run the tests, simply run `tox` on the command line.
+You can pass an optional environment variable to define the distribution of the
+Docker container that will be spun up by molecule:
+
+----
+$ MOLECULE_DISTRO=centos7 tox
+----
+
+For a list of possible values fed to `MOLECULE_DISTRO`,
+take a look at the matrix defined in link:.github/workflows/ci.yml[].
+
+==== 🐛 Debugging a Molecule Container
+
+1. Run your molecule tests with the option `MOLECULE_DESTROY=never`, e.g.:
++
+[subs="quotes,macros"]
+----
+$ *MOLECULE_DESTROY=never MOLECULE_DISTRO=#ubuntu1604# tox -e py3-ansible-#2.9#*
+...
+  TASK [ansible-role-pip : (redacted).] pass:[************************]
+  failed: [instance-py3-ansible-2.9] => changed=false
+...
+ pass:[___________________________________ summary ____________________________________]
+  pre-commit: commands succeeded
+ERROR:   py3-ansible-2.9: commands failed
+----
+
+2. Find out the name of the molecule-provisioned docker container:
++
+[subs="quotes"]
+----
+$ *docker ps*
+#30e9b8d59cdf#   geerlingguy/docker-debian10-ansible:latest   "/lib/systemd/systemd"   8 minutes ago   Up 8 minutes                                                                                                    instance-py3-ansible-2.9
+----
+
+3. Get into a bash Shell of the container, and do your debugging:
++
+[subs="quotes"]
+----
+$ *docker exec -it #30e9b8d59cdf# /bin/bash*
+
+root@instance-py3-ansible-2:/#
+root@instance-py3-ansible-2:/# python3 --version
+Python 3.8.10
+root@instance-py3-ansible-2:/# ...
+----
+
+4. After you finished your debugging, exit it and destroy the container:
++
+[subs="quotes"]
+----
+root@instance-py3-ansible-2:/# *exit*
+
+$ *docker stop #30e9b8d59cdf#*
+
+$ *docker container rm #30e9b8d59cdf#*
+_or_
+$ *docker container prune*
+----
+
+
+[[development-container-extra]]
+=== 🧃 TIP: Containerized Ideal Development Environment
+
+This Project offers a definition for a "1-Click Containerized Development Environment".
+
+This Container even allow one to run docker containers inside of them (Docker-In-Docker, dind),
+allowing for molecule execution.
 
 To use it:
 
 1. Ensure you fullfill the link:https://code.visualstudio.com/docs/remote/containers#_system-requirements[
    the System requirements of Visual Studio Code Development Containers],
-   optionally following the _Installation_-Section of the linked page section. +
-   This includes: Installing Docker, Installing Visual Studio Code itself, and Installing the necessarry Extension.
+   optionally following the __Installation__-Section of the linked page section. +
+   This includes: Installing Docker, Installing Visual Studio Code itself, and Installing the necessary Extension.
 2. Clone the project to your machine
 3. Open the folder of the repo in Visual Studio Code (_File - Open Folder…_).
-4. If you get a prompt at the lower right corner informing you about the presence of the
-devcontainer definition, you can press the accompanying button to enter it.
+4. If you get a prompt at the lower right corner informing you about the presence of the devcontainer definition,
+you can press the accompanying button to enter it.
 *Otherwise,* you can also execute the Visual Studio Command `Remote-Containers: Open Folder in Container` yourself (_View - Command Palette_ -> _type in the mentioned command_).
 
 [TIP]
@@ -86,20 +185,6 @@ once here and there as the devcontainer feature does have some problems recogniz
 changes made to its definition properly some times.
 ====
 
-// commented out as open.vscode.com does not currently work as tracked in https://github.com/JonasPammer/ansible-role-bootstrap/issues/33
-// [NOTE]
-// =====
-// You may need to...
-//
-// * Install and configure https://www.docker.com/get-started[Docker] for your operating system.
-//
-//
-// * Install the https://aka.ms/vscode-remote/download/extension[Remote Development extension pack.]
-//
-// , even though modern VSCode offers to automatically do all that too
-// by just clicking a button that pops up (crazy).
-// =====
-
 [NOTE]
 =====
 You may need to configure your host system to enable the container to use your SSH Keys.
@@ -107,23 +192,3 @@ You may need to configure your host system to enable the container to use your S
 The procedure is described https://code.visualstudio.com/docs/remote/containers#_sharing-git-credentials-with-your-container[
 in the official devcontainer docs under "Sharing Git credentials with your container"].
 =====
-
-// commented out as open.vscode.com does not currently work as tracked in https://github.com/JonasPammer/ansible-role-bootstrap/issues/33
-// [TIP]
-// ====
-// The "Open in Visual Studio Code" badge even got other fancy options worth checking out, especially // for non-relevant Ad-Hoc On-The-Go changes, being
-// "Open with Remote Repositories" or
-// "Open in VS Code for the Web".
-// ====
-
-==== Gitpod Containerized Development Environment
-
-__It's basically like what you would get by clicking on "Open in VS Code for the Web",
-with the exception that there's an actual machine running docker somewhere for you,
-so you basically got *all* the features --
-but also with all the benefits of a pre-defined, Containerized Development Environment.
-It even has a free plan.
-It's great for Ad-Hoc changes / fiddling around from anywhere on any kind of Computer Device I'm on right now.
-Big Baller's can even Self-Host the service.__
-
-https://gitpod.io/#https://github.com/JonasPammer/ansible-role-shellcheck[image:https://gitpod.io/button/open-in-gitpod.svg[Open in Gitpod]]
