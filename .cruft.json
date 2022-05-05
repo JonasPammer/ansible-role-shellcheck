@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/JonasPammer/cookiecutter-ansible-role.git",
-  "commit": "f09593ce566ca8ba05a8c158ff4a9a051a445016",
+  "commit": "27809eabeebb952ee685cb30f1f80bf38f0d74af",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -12,6 +12,7 @@
       "min_ansible_version": "2.9",
       "allow_duplicates": "no",
       "ansible_user_needs_to_become": "True",
+      "_role_name": null,
       "role_name": "shellcheck",
       "project_slug": "ansible-role-shellcheck",
       "project_short_purpose": "installing shellcheck, a static analysis tool for shell scripts",

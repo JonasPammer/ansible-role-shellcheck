@@ -87,11 +87,20 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install tox~=3.24.5
 
-      - name: Run Molecule tests.
+      - name: Run Molecule tests (normal).
         run: tox
         env:
           MOLECULE_DISTRO: ${{ matrix.distro }}
           TOX_PARALLEL_NO_SPINNER: 1
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+
+      - name: Run Molecule tests (debug).
+        run: tox
+        env:
+          MOLECULE_DESTROY: never
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+          TOX_PARALLEL_NO_SPINNER: 1
+        if: ${{ github.event_name == 'workflow_dispatch' }}
 
       - name: setup tmate session if previous step failed and if this is a manual run
         if: ${{ failure() && github.event_name == 'workflow_dispatch' }}
