@@ -82,7 +82,7 @@ repos:
       - id: setup-cfg-fmt
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.950
+    rev: v0.960
     hooks:
       - id: mypy
         additional_dependencies: [] # as per requirements.txt
@@ -90,7 +90,7 @@ repos:
   # pip-compile`s 'requirements.in' files as its recommended to have the 'requirements.txt' version
   # checked into source control too.
   - repo: https://github.com/jazzband/pip-tools
-    rev: 6.6.0
+    rev: 6.6.2
     hooks:
       - id: pip-compile
 
