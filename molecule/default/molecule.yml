@@ -4,6 +4,9 @@ dependency:
   options:
     role-file: requirements.yml
     requirements-file: requirements.yml
+lint: |
+  set -e
+  ansible-lint
 driver:
   name: docker
 platforms:

@@ -21,6 +21,7 @@ permissions: read-all
       - "molecule/**"
       - "tasks/*"
       - "vars/*"
+      - ".ansible-lint"
       - ".gitattributes"
       - ".yamllint"
       - "pyproject.toml"
@@ -36,16 +37,16 @@ jobs:
     if: ${{ github.event.inputs.lint != 'false' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the codebase.
+      - name: check out the codebase
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.
+      - name: set up python 3
         uses: actions/setup-python@v3
         with:
-          python-version: "3.x"
+          python-version: "3.8"
 
-      - name: Install test dependencies.
-        run: pip3 install yamllint
+      - name: Install yamllint package.
+        run: pip3 install "yamllint==1.*"
 
       - name: Lint YAML (GitHub Annotations)
         run: |
@@ -59,6 +60,7 @@ jobs:
       - name: Lint YAML (Standard Output)
         if: always()
         run: yamllint . -f standard
+
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
@@ -76,13 +78,19 @@ jobs:
           - ubuntu2004
 
     steps:
-      - name: Check out the codebase.
+      - name: check out the codebase
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.
+      - name: set up python 3
         uses: actions/setup-python@v3
         with:
-          python-version: "3.x"
+          python-version: "3.8"
+
+      - name: setup/activate pre-commit cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ hashFiles('**/.pre-commit-config.yaml') }}
 
       - name: Install test dependencies.
         run: pip3 install tox~=3.24.5

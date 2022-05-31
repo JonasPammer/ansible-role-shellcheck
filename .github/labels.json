@@ -32,9 +32,8 @@
   {
     "name": "needs-triage",
     "color": "EDEDED",
-    "description": "Indicates an issue or PR lacks a `kind/foo` label and requires one."
+    "description": "Indicates an issue or PR lacks a `triage/foo` label and requires one."
   },
-
   {
     "name": "triage/duplicate",
     "color": "D455D0",
@@ -56,11 +55,15 @@
     "description": "Indicates an issue or PR is ready to be actively worked on."
   },
   {
+    "name": "triage/wontfix",
+    "color": "ffffff",
+    "description": "This will not be worked on"
+  },
+  {
     "name": "needs-triage",
     "color": "EDEDED",
     "description": "Indicates an issue or PR lacks a `triage/foo` label and requires one."
   },
-
   {
     "name": "good first issue",
     "color": "7057ff",
@@ -69,12 +72,7 @@
   {
     "name": "help wanted",
     "color": "008672",
-    "description": "Denotes an issue that needs help from a contributor."
-  },
-  {
-    "name": "wontfix",
-    "color": "ffffff",
-    "description": "This will not be worked on"
+    "description": "Denotes an issue that needs help from other contributors."
   },
   {
     "name": "size/XS",
@@ -105,5 +103,15 @@
     "name": "size/XXL",
     "color": "#ee0000",
     "description": "Denotes a PR that changes 1000+ lines, ignoring generated files."
+  },
+  {
+    "name": "priority/low",
+    "color": "#0000FF",
+    "description": "Categorizes a issue or PR as low priority."
+  },
+  {
+    "name": "priority/high",
+    "color": "#FF0000",
+    "description": "Categorizes a issue or PR as high priority."
   }
 ]

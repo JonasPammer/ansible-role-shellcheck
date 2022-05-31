@@ -31,9 +31,6 @@ as pull requests are being squash merged into one commit in the project.
 Only core contributors, i.e. those with rights to push to this project's branches, must follow it
 (e.g. to allow for automatic version determination and changelog generation to work).
 
-🚨 **However, it is still a good idea to make sure that you create small, self-contained commits and pull requests.**
-_More on this general concept may be found in in the following sections and the blogs linked in it._
-
 === 🚀 Getting Started
 
 Contributions are made to this repo via Issues and Pull Requests (PRs).

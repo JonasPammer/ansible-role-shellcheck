@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,jetbrains+all,virtualenv,linux,ansible,svn,windows,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,jetbrains+all,virtualenv,linux,ansible,svn,windows,python
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,jetbrains+all,virtualenv,linux,svn,windows,python,ansible
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,jetbrains+all,virtualenv,linux,svn,windows,python,ansible
 
 ### Ansible ###
 *.retry

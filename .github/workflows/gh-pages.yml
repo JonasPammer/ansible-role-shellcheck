@@ -15,22 +15,32 @@ permissions:
       - "CONTRIBUTING.adoc"
       - "DEVELOPMENT.adoc"
       - "LICENSE"
-      - "README.adoc"
+      - "README.orig.adoc"
 
 jobs:
   gh-pages:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the codebase.
+      - name: check out the codebase
         uses: actions/checkout@v2
 
-      - name: Setup Ruby
+      - name: setup ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "2.7.0"
 
-      - name: Install Asciidoctor
-        run: gem install --no-document asciidoctor rouge coderay
+      - name: install asciidoctor
+        run: gem install --no-document asciidoctor asciidoctor-reducer rouge coderay
+
+      - name: Generate README.adoc using ascidoctor-reducer.
+        run: asciidoctor-reducer README.orig.adoc -o README.adoc
+
+      - name: Commit generated README.
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "${{ github.event.head_commit.message }}  \n as per ${{ github.sha }}"
+          file_pattern: README.adoc
+          disable_globbing: true
 
       - name: Generate HTML
         run: asciidoctor --backend=html5 --destination-dir docs --out-file index.html README.adoc
