@@ -23,6 +23,8 @@
 
     - name: Run 'shellcheck --version' (ansible.builtin.command).
       ansible.builtin.command: shellcheck --version
+      changed_when: false
 
     - name: Run 'shellcheck --version' (ansible.builtin.shell).
       ansible.builtin.shell: shellcheck --version
+      changed_when: false
