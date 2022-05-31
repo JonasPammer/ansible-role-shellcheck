@@ -18,7 +18,7 @@
       changed_when: false
 
     - name: Fetch shellcheck version.
-      ansible.builtin.shell: > # noqa command-instead-of-shell
+      ansible.builtin.shell: >
         set -o pipefail && \
         shellcheck --version | grep 'version: ' | awk '{ print $2 }'
       changed_when: false
