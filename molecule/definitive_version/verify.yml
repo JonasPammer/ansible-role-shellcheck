@@ -21,6 +21,8 @@
       ansible.builtin.shell: >
         set -o pipefail && \
         shellcheck --version | grep 'version: ' | awk '{ print $2 }'
+      args:
+        executable: /bin/bash
       changed_when: false
       register: shellcheck__register_shell_shellcheck_version_awk
 
