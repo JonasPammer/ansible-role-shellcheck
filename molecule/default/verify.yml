@@ -26,5 +26,5 @@
       changed_when: false
 
     - name: Run 'shellcheck --version' (ansible.builtin.shell).
-      ansible.builtin.shell: shellcheck --version
+      ansible.builtin.shell: shellcheck --version # noqa command-instead-of-shell
       changed_when: false
