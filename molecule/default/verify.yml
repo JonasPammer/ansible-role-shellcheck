@@ -20,6 +20,7 @@
 
         echo "hello"
         EOF
+      changed_when: false
 
     - name: Run 'shellcheck --version' (ansible.builtin.command).
       ansible.builtin.command: shellcheck --version
