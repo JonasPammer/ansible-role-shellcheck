@@ -2,6 +2,6 @@
 # vars file of ansible-role jonaspammer.shellcheck
 # (tl;dr: almost not overwrite-able variables)
 
-_shellcheck_system_package_name:
+_shellcheck__system_package_name:
   Debian: "shellcheck"
   RedHat: "ShellCheck"

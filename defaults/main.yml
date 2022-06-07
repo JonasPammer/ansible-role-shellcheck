@@ -5,11 +5,11 @@
 shellcheck_install_method: release
 
 shellcheck_system_package_name: "{{
-  _shellcheck_system_package_name[ansible_distribution ~ '_' ~ ansible_distribution_major_version]|default(
-  _shellcheck_system_package_name[ansible_os_family ~ '_' ~ ansible_distribution_major_version])|default(
-  _shellcheck_system_package_name[ansible_distribution])|default(
-  _shellcheck_system_package_name[ansible_os_family])|default(
-  _shellcheck_system_package_name['default']) }}"
+  _shellcheck__system_package_name[ansible_distribution ~ '_' ~ ansible_distribution_major_version]|default(
+  _shellcheck__system_package_name[ansible_os_family ~ '_' ~ ansible_distribution_major_version])|default(
+  _shellcheck__system_package_name[ansible_distribution])|default(
+  _shellcheck__system_package_name[ansible_os_family])|default(
+  _shellcheck__system_package_name['default']) }}"
 
 shellcheck_release: stable
 shellcheck_release_checksum_check: false
