@@ -15,4 +15,4 @@ Fixes #
 
 - [ ] pre-commit was installed in local development environment (if not, a GitHub workflow will run pre-commit once you create the request)
 
-- [ ] my commits are small, single-purpose, detailed and maybe even follow the [conventional commit specification](https://gist.github.com/JonasPammer/4ea577854ae10afe644bff366d7b2a8a) for extra convenience of the reviewer
+- [ ] my commits are small, single-purpose, detailed and maybe even follow the [conventional commit specification](https://github.com/JonasPammer/JonasPammer/blob/master/demystifying/conventional_commits.adoc) for extra convenience of the reviewer

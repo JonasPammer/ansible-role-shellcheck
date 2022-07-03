@@ -1,6 +1,6 @@
 module.exports = {
   extends: [
-    "@commitlint/config-conventional", // https://gist.github.com/JonasPammer/4ea577854ae10afe644bff366d7b2a8a
+    "@commitlint/config-conventional", // https://github.com/JonasPammer/JonasPammer/blob/master/demystifying/conventional_commits.adoc
   ],
   rules: {
     "header-max-length": [2, "always", 72 * 2],

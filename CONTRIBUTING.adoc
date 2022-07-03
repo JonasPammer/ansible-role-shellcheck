@@ -25,7 +25,7 @@ in which case you would be creating multiple PRs.
 === 💬 Conventional Commits
 
 A casual contributor does not have to worry about following
-https://gist.github.com/JonasPammer/4ea577854ae10afe644bff366d7b2a8a[__the spec__]
+https://github.com/JonasPammer/JonasPammer/blob/master/demystifying/conventional_commits.adoc[__the spec__]
 https://www.conventionalcommits.org/en/v1.0.0/[__by definition__],
 as pull requests are being squash merged into one commit in the project.
 Only core contributors, i.e. those with rights to push to this project's branches, must follow it

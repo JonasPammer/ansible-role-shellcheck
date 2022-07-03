@@ -107,11 +107,12 @@ repos:
       - id: reorder-python-imports
         args: [--py37-plus, --add-import, "from __future__ import annotations"]
 
-  # a tool designed to find common security issues in Python code.
-  - repo: https://github.com/PyCQA/bandit
-    rev: "1.7.4"
+  # formats docstrings to follow PEP 257.
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.4
     hooks:
-      - id: bandit
+      - id: docformatter
+        args: [--in-place]
 
   # flake8 is a python tool that glues together…
   #   pycodestyle (befriended with `black` through config changes),
@@ -123,8 +124,6 @@ repos:
     rev: "4.0.1"
     hooks:
       - id: flake8
-
-# TODO python doc formatter
 
 default_language_version:
   python: python3
