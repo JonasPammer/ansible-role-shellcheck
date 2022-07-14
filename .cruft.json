@@ -9,7 +9,7 @@
       "code_of_conduct_enforcement_contact_email": "opensource@jonaspammer.at",
       "github_username": "JonasPammer",
       "galaxy_name": "jonaspammer",
-      "min_ansible_version": "2.9",
+      "min_ansible_version": "2.11",
       "allow_duplicates": "no",
       "ansible_user_needs_to_become": "True",
       "role_name_": "shellcheck",
