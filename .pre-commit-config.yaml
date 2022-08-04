@@ -23,7 +23,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.2.0
+    rev: v1.3.0
     hooks:
       - id: detect-secrets
         exclude: |
@@ -86,13 +86,6 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies: [] # as per requirements.txt
-
-  # pip-compile`s 'requirements.in' files as its recommended to have the 'requirements.txt' version
-  # checked into source control too.
-  - repo: https://github.com/jazzband/pip-tools
-    rev: 6.8.0
-    hooks:
-      - id: pip-compile
 
   # the uncompromising (opinionated / barely configurable) PEP8 Python code formatter.
   - repo: https://github.com/psf/black
