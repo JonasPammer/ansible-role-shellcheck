@@ -2,6 +2,6 @@
 # tasks file of ansible-role jonaspammer.shellcheck
 
 - name: Install shellcheck system package.
-  package:
+  ansible.builtin.package:
     name: "shellcheck"
     state: present

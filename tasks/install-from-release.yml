@@ -19,6 +19,8 @@
     checksum:
       "{{ shellcheck_release_checksums[shellcheck__register_fact_shellcheck_architecture]
       if shellcheck_release_checksum_check else omit }}"
+    mode: u=rwx,g=r,o=r
+    owner: root
   changed_when: false
 
 - name: Unarchive downloaded shellcheck release archive to temporary directory (never changes).
@@ -34,4 +36,4 @@
     remote_src: true
     dest: "/usr/local/bin/shellcheck"
     mode: u=rwx,g=rx,o=rx
-    owner: "root"
+    owner: root
