@@ -3,7 +3,7 @@
   hosts: all
 
   roles:
-    - role: "ansible-role-shellcheck"
+    - name: "ansible-role-shellcheck"
 
   vars:
     # as per README.adoc example:
