@@ -1041,6 +1041,12 @@ As of writing this is:</p>
 <li>
 <p>2.13 (Ansible 6)</p>
 </li>
+<li>
+<p>2.14 (Ansible 7)</p>
+</li>
+<li>
+<p>2.15 (Ansible 8)</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1188,11 +1194,10 @@ root@instance-py3-ansible-2:/# ...</pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If the failure you try to debug is part of <code>verify.yml</code> step and not the actual <code>converge.yml</code>,
-you may want to know that the output of ansible&#8217;s modules (<code>vars</code>), hosts (<code>hostvars</code>) and environment variables have been stored into files
-on both the provisioner and inside the docker machine under:
-* <code>/var/tmp/vars.yml</code>
-* <code>/var/tmp/hostvars.yml</code>
+<p>If the failure you try to debug is part of your <code>verify.yml</code> step and not the actual <code>converge.yml</code>,
+you may want to know that the output of ansible&#8217;s modules (<code>vars</code>), hosts (<code>hostvars</code>) and
+environment variables have been stored into files on both the provisioner and inside the docker machine under:
+* <code>/var/tmp/vars.yml</code> (contains host variables under the <code>hostvars</code> key)
 * <code>/var/tmp/environment.yml</code>
 <code>grep</code>, <code>cat</code> or transfer these as you wish!</p>
 </div>
@@ -1589,7 +1594,7 @@ SOFTWARE.</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-23 10:57:16 UTC
+Last updated 2023-09-25 16:16:05 UTC
 </div>
 </div>
 </body>
