@@ -3,6 +3,8 @@ name: build self-contained READMEs
 
 "on":
   push:
+    branches-ignore:
+      - renovate/**
 
 permissions:
   contents: read
@@ -18,6 +20,10 @@ jobs:
     permissions:
       contents: write
       pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: "${{ steps.deployment.outputs.page_url }}"
     steps:
       ### Setup
       - name: check out the codebase
