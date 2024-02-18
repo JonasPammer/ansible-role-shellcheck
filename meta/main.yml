@@ -2,7 +2,6 @@
 galaxy_info:
   role_name: "shellcheck"
   description: "An ansible role for installing shellcheck, a static analysis tool for shell scripts."
-  standalone: true
 
   author: "jonaspammer"
   license: "MIT"
