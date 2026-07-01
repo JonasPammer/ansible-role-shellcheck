@@ -28,7 +28,7 @@ jobs:
           path: "jonaspammer.shellcheck"
 
       - name: Set up Python 3.
-        uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c # v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.x"
 
